@@ -1,14 +1,15 @@
 import React, { useRef, useState, memo } from "react";
 import {View, Button, Text} from "react-native";
+import Card from "./Card";
 
-const Child = props =>{
+const Child1 = props =>{
     let renderCount= useRef(0);
     const [childCounter, setChildCounter]= useState(0);
     renderCount.current++;
 
     return (
         <View> 
-            <Button title="increment child counter" onPress={()=>{
+            <Button title="increment Child-1 counter" onPress={()=>{
                     props.buttonPress();
                     setChildCounter(childCounter+1);
                 }
@@ -20,4 +21,4 @@ const Child = props =>{
     )
 }
 
-export default memo(Child);
+export default memo(Child1);

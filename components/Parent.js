@@ -1,44 +1,39 @@
 import React, {useCallback, useRef, useState} from "react";
 import {View, Text, Button, StyleSheet} from "react-native";
-import Child from "./Child";
-
+import Child1 from "./Child1";
+import Child2 from "./Child2";
+import Card from "./Card";
 const Parent = props =>{
     
-    const [withCallback, setWithCallback] = useState(true);
     const [parentcounter, setParentCounter]= useState(0);
     let renderCount= useRef(0);
     renderCount.current++;
-    let childButtonPress;
-    
-    
+  
     const buttonPressHandler = ()=>{
         setParentCounter(parentcounter+1);
     };
     
-    childButtonPress =useCallback(()=>{
-        console.log("child button pressed");
+    const child1ButtonPress =()=>{
+        console.log("child-1 button pressed");
+    }
+    
+    const child2ButtonPress =useCallback(()=>{
+        console.log("child-2 button pressed");
     },[]);
 
-    if(!withCallback){
-        childButtonPress=()=>{console.log("child button pressed");}
-    }
-
     return (
-        <View style={styles.container}> 
-            <View>
-                <Button title="SWITCH" color="blue" onPress={()=>setWithCallback(!withCallback)}/>
-                {withCallback && <Text>RESULTS WITH CALLBACK and MEMO</Text>}
-                {!withCallback && <Text>RESULTS WITHOUT CALLBACK and MEMO</Text>}
-            </View>
-           
-            <View style={styles.box}> 
-                <Button title="increment parent counter" onPress={buttonPressHandler}/>
+        <View style={styles.container}>         
+            <Card> 
+                <Button title="increment Parent counter" onPress={buttonPressHandler}/>
                 <Text>Parent Counter: {parentcounter}</Text>
-                <Text>Parent Component Render Count: {renderCount.current}</Text>
-            </View>
-            <View style={styles.box}> 
-                <Child buttonPress={childButtonPress}/>
-            </View>
+                <Text>Parent component Render Count: {renderCount.current}</Text>
+            </Card>
+            <Card> 
+                <Child1 buttonPress={child1ButtonPress}/>
+            </Card>
+            <Card> 
+                <Child2 buttonPress={child2ButtonPress}/>
+            </Card>
         </View>
     )
 }
@@ -46,23 +41,10 @@ const Parent = props =>{
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'green',
+        backgroundColor: '#00004d',
         flexDirection:"column",
         alignItems: 'center',
         justifyContent: 'center',
-    },
-    box:{
-        shadowColor: 'black',
-        width:300,
-        height:100,
-        shadowOpacity: 0.26,
-        shadowOffset: { width: 0, height: 2 },
-        shadowRadius: 8,
-        elevation: 5,
-        borderRadius: 10,
-        backgroundColor: 'white',
-        marginVertical:20,
-        padding:10
     }
   });
 
