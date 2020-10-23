@@ -21,4 +21,4 @@ const Child1 = props =>{
     )
 }
 
-export default memo(Child1);
+export default Child1;
